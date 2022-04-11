@@ -1,0 +1,4 @@
+rootProject.name = 'boa.entrega'
+
+include 'customer'
+include 'supplier'

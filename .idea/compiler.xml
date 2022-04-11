@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.22/9c08ea24c6eb714e2d6170e8122c069a0ba9aacf/lombok-1.18.22.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.6.6/f4b65c31c47798e79dd8ede03930f3e8775f0576/spring-boot-configuration-processor-2.6.6.jar" />
+        </processorPath>
+        <module name="boa.entrega.main" />
+        <module name="boa.entrega.customer.main" />
+        <module name="boa.entrega.supplier.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="backend" target="18" />
+      <module name="backend.boa-entrega" target="18" />
+      <module name="backend.boa-entrega.main" target="18" />
+      <module name="backend.boa-entrega.test" target="18" />
+      <module name="backend.buildSrc" target="16" />
+      <module name="backend.buildSrc.main" target="16" />
+      <module name="backend.buildSrc.test" target="16" />
+      <module name="backend.customer" target="18" />
+      <module name="backend.customer.main" target="18" />
+      <module name="backend.customer.test" target="18" />
+      <module name="backend.main" target="18" />
+      <module name="backend.supplier" target="18" />
+      <module name="backend.supplier.main" target="18" />
+      <module name="backend.supplier.test" target="18" />
+      <module name="backend.test" target="18" />
+      <module name="boa-entrega.app" target="16" />
+      <module name="boa-entrega.app.main" target="16" />
+      <module name="boa-entrega.app.test" target="16" />
+      <module name="boa-entrega.buildSrc" target="16" />
+      <module name="boa-entrega.buildSrc.main" target="16" />
+      <module name="boa-entrega.buildSrc.test" target="16" />
+      <module name="boa-entrega.customer" target="18" />
+      <module name="boa-entrega.customer.main" target="18" />
+      <module name="boa-entrega.customer.test" target="18" />
+      <module name="boa-entrega.list" target="16" />
+      <module name="boa-entrega.list.main" target="16" />
+      <module name="boa-entrega.list.test" target="16" />
+      <module name="boa-entrega.supplier" target="18" />
+      <module name="boa-entrega.supplier.main" target="18" />
+      <module name="boa-entrega.supplier.test" target="18" />
+      <module name="boa-entrega.utilities" target="16" />
+      <module name="boa-entrega.utilities.main" target="16" />
+      <module name="boa-entrega.utilities.test" target="16" />
+      <module name="boa.entrega.buildSrc" target="18" />
+      <module name="boa.entrega.buildSrc.main" target="18" />
+      <module name="boa.entrega.buildSrc.test" target="18" />
+      <module name="customer" target="18" />
+      <module name="supplier" target="18" />
+      <module name="supplier.main" target="18" />
+      <module name="supplier.test" target="18" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="customer" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14.2-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - boa-entrega
+    environment:
+      POSTGRES_USER: boaentrega
+      POSTGRES_PASSWORD: boaentrega
+
+  localstack:
+    image: localstack/localstack:0.14.2
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    networks:
+      - boa-entrega
+    environment:
+      SERVICES: cognito,apigateway,sns
+      HOSTNAME: boaentrega.com.br
+      HOSTNAME_EXTERNAL: boaentrega.com.br
+
+networks:
+  boa-entrega:
