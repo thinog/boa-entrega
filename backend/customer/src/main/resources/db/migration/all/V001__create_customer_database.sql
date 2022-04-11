@@ -7,7 +7,7 @@ create table if not exists customer
 
 create table if not exists address
 (
-    id                    bigserial    not null,
+    id                    bigserial    not null primary key,
     id_customer           bigint       not null,
     street                varchar(255) not null,
     number                varchar(50)  not null,
