@@ -1,1 +1,10 @@
-version = '0.0.1-SNAPSHOT'
+version = '1.0'
+
+task flywayMigrateDev(type: org.flywaydb.gradle.task.FlywayMigrateTask) {
+    url = 'jdbc:postgresql://localhost:5432/customer'
+    user = 'boaentrega'
+    password = 'boaentrega'
+    baselineOnMigrate = true
+    validateOnMigrate = true
+    locations = ['classpath:db/migration/all', 'classpath:db/migration/dev']
+}

@@ -1,11 +1,13 @@
 package boa.entrega.customer.exception;
 
+import java.text.MessageFormat;
+
 public class EntityNotFound extends BusinessException {
 
-    private String entityName;
-
     public EntityNotFound(String entityName) {
-        this.entityName = entityName;
+        super(
+                MessageFormat.format("Entidade \"{0}\" não encontrada", entityName),
+                ErrorCode.NOT_FOUND);
     }
 
 

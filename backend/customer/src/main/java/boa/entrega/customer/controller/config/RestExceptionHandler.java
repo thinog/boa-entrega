@@ -1,4 +1,4 @@
-package boa.entrega.customer.config;
+package boa.entrega.customer.controller.config;
 
 import boa.entrega.customer.exception.BusinessException;
 import lombok.AllArgsConstructor;
