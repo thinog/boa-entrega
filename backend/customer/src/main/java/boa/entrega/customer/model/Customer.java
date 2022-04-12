@@ -14,8 +14,10 @@ public class Customer {
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id", nullable = false)
     private List<Address> addresses;
 }

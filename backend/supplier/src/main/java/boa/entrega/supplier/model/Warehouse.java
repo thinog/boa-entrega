@@ -1,4 +1,4 @@
-package boa.entrega.customer.model;
+package boa.entrega.supplier.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -7,14 +7,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class Address {
+public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="customer_id", nullable = true, insertable = false, updatable = false)
-    @JsonIgnore
-    private long customerId;
+    private String name;
 
     private String street;
 
@@ -31,8 +29,12 @@ public class Address {
     @Column(name = "zip_code")
     private String zipCode;
 
-    private String reference;
+    @Column(name = "open_hours")
+    private String openHours;
 
-    @Column(name = "delivery_instructions")
-    private String deliveryInstructions;
+    @Column(name = "created_at")
+    private String createdAt;
+
+    @JsonIgnore
+    private boolean active;
 }

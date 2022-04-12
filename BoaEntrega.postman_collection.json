@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "64cf18f9-7c50-425d-a2b5-283a18f06214",
+		"name": "Boa Entrega",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "Create customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Thiago Martins\",\n    \"email\": \"thinomar@gmail.com\",\n    \"addresses\": [\n        {\n            \"street\": \"Rua Abc\",\n            \"number\": \"123\",\n            \"complement\": \"Ap 2\",\n            \"neighborhood\": \"Vila Def\",\n            \"city\": \"São Paulo\",\n            \"state\": \"SP\",\n            \"zip_code\": \"01234-567\",\n            \"reference\": \"Perto do petshop\",\n            \"delivery_instructions\": \"deixar com o porteiro\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get customer by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update customer addresses",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 1,\n        \"street\": \"Rua Abc\",\n        \"number\": \"12345\",\n        \"complement\": \"Ap 2\",\n        \"neighborhood\": \"Vila Def\",\n        \"city\": \"São Paulo\",\n        \"state\": \"SP\",\n        \"zip_code\": \"01234-567\",\n        \"reference\": \"Perto do petshop\",\n        \"delivery_instructions\": \"deixar com o porteiro\"\n    },\n    {\n        \"street\": \"Rua tcc\",\n        \"number\": \"321\",\n        \"neighborhood\": \"Vila Def\",\n        \"city\": \"São Paulo\",\n        \"state\": \"SP\",\n        \"zip_code\": \"76543-210\",\n        \"reference\": \"Perto do posto ipiranga\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/customer/address/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"customer",
+								"address",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Supplier",
+			"item": []
+		}
+	]
+}

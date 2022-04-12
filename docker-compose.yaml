@@ -8,7 +8,10 @@ services:
       - "5432:5432"
     networks:
       - boa-entrega
+    volumes:
+      - ./backend/scripts/create_all_databases.sh:/docker-entrypoint-initdb.d/create_all_databases.sh
     environment:
+      POSTGRES_DB: customer
       POSTGRES_USER: boaentrega
       POSTGRES_PASSWORD: boaentrega
 
