@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("customer")
@@ -22,19 +21,19 @@ public class CustomerController {
     @GetMapping("{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable long id) {
         Customer response = customerService.getCustomer(id);
-        return new ResponseEntity<Customer>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-        Customer response = customerService.saveCustomer(customer);
-        return new ResponseEntity<Customer>(response, HttpStatus.CREATED);
+    public ResponseEntity<Customer> createCustomer(@RequestBody Customer body) {
+        Customer response = customerService.saveCustomer(body);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("address/{customerId}")
     public ResponseEntity<List<Address>> updateAddresses(
-            @PathVariable long customerId, @RequestBody List<Address> addresses) {
-        List<Address> response = customerService.updateAddresses(customerId, addresses);
-        return new ResponseEntity<List<Address>>(response, HttpStatus.OK);
+            @PathVariable long customerId, @RequestBody List<Address> body) {
+        List<Address> response = customerService.updateAddresses(customerId, body);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

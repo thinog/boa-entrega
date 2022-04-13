@@ -12,6 +12,8 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private long supplierId;
+
     private String name;
 
     private String street;
