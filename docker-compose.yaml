@@ -9,6 +9,36 @@ volumes:
     driver: local
 
 services:
+  ### Microservices
+  customer-app:
+    build:
+      context: ./backend/
+      dockerfile: customer.Dockerfile
+    container_name: customer-app
+    ports:
+      - "8081:8081"
+    networks:
+      - boa-entrega
+    depends_on:
+      - postgres
+
+  supplier-app:
+    build:
+      context: ./backend/
+      dockerfile: supplier.Dockerfile
+    container_name: supplier-app
+    ports:
+      - "8082:8082"
+    networks:
+      - boa-entrega
+    environment:
+      KEYCLOAK_HOST: keycloak
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASS: admin
+    depends_on:
+      - postgres
+
+
   ### Shared database
   postgres:
     image: postgres:14.2-alpine

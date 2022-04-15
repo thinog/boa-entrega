@@ -65,11 +65,12 @@ allprojects {
     }
 
     bootJar {
-        enabled = false
+        enabled = true
     }
 
     jar {
-        enabled = true
+        enabled = false
+        //archiveClassifier.set("")
     }
 }
 
@@ -81,4 +82,5 @@ dependencies {
 wrapper {
     gradleVersion = gradleVersion
 }
+
 targetCompatibility = JavaVersion.VERSION_17
