@@ -18,20 +18,26 @@ public class WarehouseController {
 
     private final WarehouseService warehouseService;
 
-    @GetMapping("all")
+    @GetMapping()
     public ResponseEntity<List<Warehouse>> getApiKeys() {
         List<Warehouse> response = warehouseService.getWarehouses(0);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<Warehouse> createCustomer(@RequestBody Warehouse body) {
+    public ResponseEntity<Warehouse> createWarehouse(@RequestBody Warehouse body) {
         Warehouse response = warehouseService.createWarehouse(body, 0);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PutMapping("{warehouseId}")
+    public ResponseEntity<Warehouse> updateWarehouse(@PathVariable long warehouseId, @RequestBody Warehouse body) {
+        Warehouse response = warehouseService.updateWarehouse(warehouseId, body, 0);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("{warehouseId}")
-    public ResponseEntity<DeleteResponseDTO> deleteApiKey(@RequestParam long warehouseId) {
+    public ResponseEntity<DeleteResponseDTO> deleteWarehouse(@PathVariable long warehouseId) {
         warehouseService.deleteWarehouse(warehouseId);
 
         return new ResponseEntity<>(

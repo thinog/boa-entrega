@@ -20,7 +20,7 @@ allprojects {
     apply plugin: 'java'
 
     group = 'boa.entrega'
-    sourceCompatibility = '18'
+    sourceCompatibility = "17"
 
     repositories {
         mavenCentral()
@@ -81,3 +81,4 @@ dependencies {
 wrapper {
     gradleVersion = gradleVersion
 }
+targetCompatibility = JavaVersion.VERSION_17

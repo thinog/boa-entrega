@@ -19,20 +19,20 @@ public class SecurityController {
 
     private final SecurityService securityService;
 
-    @GetMapping("apikey/all")
+    @GetMapping("apikey")
     public ResponseEntity<List<ApiKey>> getApiKeys() {
         List<ApiKey> response = securityService.getApiKeys(0);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("apikey")
-    public ResponseEntity<ApiKey> createCustomer(@RequestBody CreateApiKeyRequestDTO body) {
+    public ResponseEntity<ApiKey> createApiKey(@RequestBody CreateApiKeyRequestDTO body) {
         ApiKey response = securityService.createApiKey(body.getKeyName(), body.getAccessType(), 0);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("apikey/{apiKeyId}")
-    public ResponseEntity<DeleteResponseDTO> deleteApiKey(@RequestParam long apiKeyId) {
+    public ResponseEntity<DeleteResponseDTO> deleteApiKey(@PathVariable long apiKeyId) {
         securityService.deleteApiKey(apiKeyId);
 
         return new ResponseEntity<>(

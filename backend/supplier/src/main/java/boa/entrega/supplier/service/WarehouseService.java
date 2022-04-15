@@ -23,8 +23,11 @@ public class WarehouseService {
         return warehouseRepository.save(warehouse);
     }
 
-    public Warehouse updateWarehouse(Warehouse warehouse, long supplierId) {
+    public Warehouse updateWarehouse(long warehouseId, Warehouse warehouse, long supplierId) {
+        warehouseRepository.findById(warehouseId)
+                .orElseThrow(() -> new EntityNotFoundException("warehouse"));
         warehouse.setSupplierId(supplierId);
+        warehouse.setActive(true);
         return warehouseRepository.save(warehouse);
     }
 

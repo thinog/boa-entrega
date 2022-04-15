@@ -22,8 +22,10 @@ public class SecurityService {
         String hash = hashUtils.generateHashSha256(key);
 
         ApiKey apiKey = ApiKey.builder()
+                .supplierId(supplierId)
                 .name(keyName)
                 .hash(hash)
+                .accessType(accessType)
                 .build();
 
         apiKeyRepository.save(apiKey);

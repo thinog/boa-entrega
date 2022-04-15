@@ -18,6 +18,7 @@ public class ApiKey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonIgnore
     private long supplierId;
 
     private String name;
@@ -25,12 +26,15 @@ public class ApiKey {
     @JsonIgnore
     private String hash;
 
-    private AccessType type;
+    @Column(name = "access_type")
+    private AccessType accessType;
 
-    @Column(name = "created_at")
+    @JsonIgnore
+    @Column(name = "created_at", insertable = false, nullable = false, updatable = false)
     private String createdAt;
 
     @JsonIgnore
+    @Column(insertable = false)
     private boolean active;
 
     public enum AccessType {

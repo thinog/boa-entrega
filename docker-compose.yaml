@@ -1,6 +1,15 @@
 version: '3'
 
+networks:
+  boa-entrega:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+
 services:
+  ### Shared database
   postgres:
     image: postgres:14.2-alpine
     container_name: postgres
@@ -9,23 +18,101 @@ services:
     networks:
       - boa-entrega
     volumes:
+      - postgres:/var/lib/postgresql/data
       - ./backend/scripts/create_all_databases.sh:/docker-entrypoint-initdb.d/create_all_databases.sh
     environment:
-      POSTGRES_DB: customer
+      POSTGRES_DB: kong
       POSTGRES_USER: boaentrega
       POSTGRES_PASSWORD: boaentrega
 
-  localstack:
-    image: localstack/localstack:0.14.2
-    container_name: localstack
-    ports:
-      - "4566:4566"
+
+  ### AWS local resources
+#  localstack:
+#    image: localstack/localstack:0.14.2
+#    container_name: localstack
+#    ports:
+#      - "4566:4566"
+#    networks:
+#      - boa-entrega
+#    environment:
+#      SERVICES: sns
+#      HOSTNAME: localstack
+#      HOSTNAME_EXTERNAL: localstack
+
+
+  ### API Gateway
+  kong-migration:
+    image: kong/kong-gateway:2.8.1.0-alpine
+    command: kong migrations bootstrap
     networks:
       - boa-entrega
     environment:
-      SERVICES: cognito,apigateway,sns
-      HOSTNAME: boaentrega.com.br
-      HOSTNAME_EXTERNAL: boaentrega.com.br
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_USER: boaentrega
+      KONG_PG_PASSWORD: boaentrega
+    depends_on:
+      - postgres
 
-networks:
-  boa-entrega:
+  kong:
+    image: kong/kong-gateway:2.8.1.0-alpine
+    container_name: kong
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    networks:
+      - boa-entrega
+    environment:
+      KONG_DATABASE: postgres
+      KONG_PG_HOST: postgres
+      KONG_PG_USER: boaentrega
+      KONG_PG_PASSWORD: boaentrega
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_ADMIN_GUI_URL: http://localhost:8002
+    depends_on:
+      - postgres
+      - kong-migration
+
+  konga:
+    image: pantsel/konga:0.14.9
+    container_name: konga
+    ports:
+      - "1337:1337"
+    networks:
+      - boa-entrega
+    environment:
+      DB_ADAPTER: postgres
+      DB_HOST: postgres
+      DB_DATABASE: konga
+      DB_USER: boaentrega
+      DB_PASSWORD: boaentrega
+      TOKEN_SECRET: l8RDIFL7mCYOCDXxOVjxN7RJpfHoxxDf
+    depends_on:
+      - postgres
+
+
+  ### Auth server
+  keycloak:
+    image: quay.io/keycloak/keycloak:17.0.1
+    container_name: keycloak
+    command: start-dev
+    ports:
+      - "8010:8080"
+    networks:
+      - boa-entrega
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_SCHEMA: public
+      DB_USER: boaentrega
+      DB_PASSWORD: boaentrega
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    depends_on:
+      - postgres
