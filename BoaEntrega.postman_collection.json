@@ -6,6 +6,158 @@
 	},
 	"item": [
 		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "cliente",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "boa_entrega",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "MAqZXMH2ODvG0P5kQZKWTUONntjTGSTs",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "boa_entrega",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "8JO3EccogD52Yr1ZwS8DhgMqf97X2Vje",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "boa_entrega",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "8JO3EccogD52Yr1ZwS8DhgMqf97X2Vje",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Customer",
 			"item": [
 				{
@@ -23,12 +175,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/customer",
-							"protocol": "http",
+							"raw": "{{kong_url}}/customer",
 							"host": [
-								"localhost"
+								"{{kong_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"customer"
 							]
@@ -42,12 +192,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/customer/1",
-							"protocol": "http",
+							"raw": "{{kong_url}}/customer/1",
 							"host": [
-								"localhost"
+								"{{kong_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"customer",
 								"1"
@@ -71,12 +219,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/customer/address/1",
-							"protocol": "http",
+							"raw": "{{kong_url}}/customer/address/1",
 							"host": [
-								"localhost"
+								"{{kong_url}}"
 							],
-							"port": "8081",
 							"path": [
 								"customer",
 								"address",
@@ -100,12 +246,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8082/security/apikey",
-									"protocol": "http",
+									"raw": "{{kong_url}}/security/apikey",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"security",
 										"apikey"
@@ -129,12 +273,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8082/security/apikey",
-									"protocol": "http",
+									"raw": "{{kong_url}}/security/apikey",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"security",
 										"apikey"
@@ -149,12 +291,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8082/security/apikey/9",
-									"protocol": "http",
+									"raw": "{{kong_url}}/security/apikey/9",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"security",
 										"apikey",
@@ -175,12 +315,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8082/warehouse",
-									"protocol": "http",
+									"raw": "{{kong_url}}/warehouse",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"warehouse"
 									]
@@ -203,12 +341,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8082/warehouse",
-									"protocol": "http",
+									"raw": "{{kong_url}}/warehouse",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"warehouse"
 									]
@@ -231,12 +367,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:8082/warehouse/1",
-									"protocol": "http",
+									"raw": "{{kong_url}}/warehouse/1",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"warehouse",
 										"1"
@@ -251,12 +385,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8082/warehouse/1",
-									"protocol": "http",
+									"raw": "{{kong_url}}/warehouse/1",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8082",
 									"path": [
 										"warehouse",
 										"1"
@@ -268,6 +400,126 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Infrastructure",
+			"item": [
+				{
+					"name": "Kong",
+					"item": [
+						{
+							"name": "Get services",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{kong_admin_url}}/services",
+									"host": [
+										"{{kong_admin_url}}"
+									],
+									"path": [
+										"services"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get routes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{kong_admin_url}}/routes",
+									"host": [
+										"{{kong_admin_url}}"
+									],
+									"path": [
+										"routes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get plugins",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{kong_admin_url}}/plugins",
+									"host": [
+										"{{kong_admin_url}}"
+									],
+									"path": [
+										"plugins"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Keycloak",
+					"item": [
+						{
+							"name": "Get OpenID configs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/realms/master/.well-known/openid-configuration",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"realms",
+										"master",
+										".well-known",
+										"openid-configuration"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "kong_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "kong_admin_url",
+			"value": "http://localhost:8001",
+			"type": "string"
 		}
 	]
 }
