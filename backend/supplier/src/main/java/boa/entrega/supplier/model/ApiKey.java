@@ -21,6 +21,10 @@ public class ApiKey {
     @JsonIgnore
     private long supplierId;
 
+    @JsonIgnore
+    @Column(name = "external_id")
+    private String externalId;
+
     private String name;
 
     @JsonIgnore
@@ -29,7 +33,6 @@ public class ApiKey {
     @Column(name = "access_type")
     private AccessType accessType;
 
-    @JsonIgnore
     @Column(name = "created_at", insertable = false, nullable = false, updatable = false)
     private String createdAt;
 

@@ -1,0 +1,45 @@
+_format_version: "1.1"
+
+services:
+  - host: customer-app
+    name: customer
+    port: 8081
+    protocol: http
+    routes:
+      - name: customer
+        strip_path: false
+        paths:
+          - /customer
+    plugins:
+      - name: jwt-keycloak
+        config:
+          allowed_iss:
+            - http://keycloak:8080/realms/master
+            - http://localhost:8080/realms/master
+          well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
+          realm_roles:
+            - customer
+
+  - host: supplier-app
+    name: supplier
+    port: 8082
+    protocol: http
+    routes:
+      - name: security
+        strip_path: false
+        paths:
+          - /security
+
+      - name: warehouse
+        strip_path: false
+        paths:
+          - /warehouse
+    plugins:
+      - name: jwt-keycloak
+        config:
+          allowed_iss:
+            - http://keycloak:8080/realms/master
+            - http://localhost:8080/realms/master
+          well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
+          realm_roles:
+            - supplier

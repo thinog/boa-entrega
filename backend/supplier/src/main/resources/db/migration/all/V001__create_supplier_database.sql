@@ -13,6 +13,7 @@ create table if not exists warehouse
 (
     id           bigserial    not null primary key,
     supplier_id  bigint       not null,
+    external_id  text         not null,
     name         varchar(150) not null,
     street       varchar(255) not null,
     number       varchar(50)  not null,
