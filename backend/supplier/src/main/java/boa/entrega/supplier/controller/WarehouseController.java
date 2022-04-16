@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("warehouse")
+@RequestMapping("api/warehouse")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class WarehouseController {
 

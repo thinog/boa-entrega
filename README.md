@@ -7,8 +7,10 @@ https://stackoverflow.com/a/65018993
 
 admin / admin
 
-cliente / 123456
+cliente1 / 123456
 
-fornecedor159 / 123456
+cliente2 / 123456
 
-fornecedor753 / 123456
+fornecedor1 / 123456
+
+fornecedor2 / 123456

@@ -30,6 +30,7 @@ public class ApiKey {
     @JsonIgnore
     private String hash;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "access_type")
     private AccessType accessType;
 

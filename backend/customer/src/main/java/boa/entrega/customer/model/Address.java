@@ -35,4 +35,11 @@ public class Address {
 
     @Column(name = "delivery_instructions")
     private String deliveryInstructions;
+
+    @Column(name = "created_at", insertable = false, nullable = false, updatable = false)
+    private String createdAt;
+
+    @JsonIgnore
+    @Column(insertable = false)
+    private boolean active;
 }

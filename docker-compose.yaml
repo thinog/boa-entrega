@@ -7,12 +7,6 @@ volumes:
   postgres:
     driver: local
 
-x-kong-db-env: &kong-db-env
-  KONG_DATABASE: postgres
-  KONG_PG_HOST: postgres
-  KONG_PG_USER: boaentrega
-  KONG_PG_PASSWORD: boaentrega
-
 services:
   ### Microservices
   customer-app:
@@ -76,16 +70,6 @@ services:
 
 
   ### API Gateway
-#  kong-migration:
-#    image: kong/kong-gateway:2.8.1.0-alpine
-#    command: kong migrations bootstrap
-#    networks:
-#      - boa-entrega
-#    environment:
-#      <<: *kong-db-env
-#    depends_on:
-#      - postgres
-
   kong:
     build:
       context: ./config/kong/
@@ -114,25 +98,6 @@ services:
       KONG_PLUGINS: bundled,jwt-keycloak
     depends_on:
       - postgres
-
-# PostgreSQL 14 is not supported by Konga :/
-#  konga:
-#    image: pantsel/konga:next
-#    container_name: konga
-#    restart: always
-#    ports:
-#      - "1337:1337"
-#    networks:
-#      - boa-entrega
-#    environment:
-#      DB_ADAPTER: postgres
-#      DB_HOST: postgres
-#      DB_DATABASE: konga
-#      DB_USER: boaentrega
-#      DB_PASSWORD: boaentrega
-#      TOKEN_SECRET: l8RDIFL7mCYOCDXxOVjxN7RJpfHoxxDf
-#    depends_on:
-#      - postgres
 
 
   ### Auth server

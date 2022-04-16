@@ -7,7 +7,6 @@ import boa.entrega.supplier.model.ApiKey;
 import boa.entrega.supplier.model.Event;
 import boa.entrega.supplier.repository.ApiKeyRepository;
 import boa.entrega.supplier.utils.HashUtils;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
