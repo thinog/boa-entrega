@@ -6,18 +6,26 @@
 	},
 	"item": [
 		{
-			"name": "Auth",
+			"name": "Customer",
 			"item": [
 				{
-					"name": "Login",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Login Copy",
+					"name": "Login Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    const body = pm.response.json();",
+									"    pm.collectionVariables.set(\"customer_access_token\", body.access_token);",
+									"    pm.collectionVariables.set(\"customer_refresh_token\", body.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -26,12 +34,12 @@
 							"urlencoded": [
 								{
 									"key": "username",
-									"value": "cliente",
+									"value": "{{customer_user}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "123456",
+									"value": "{{customer_pass}}",
 									"type": "text"
 								},
 								{
@@ -41,164 +49,118 @@
 								},
 								{
 									"key": "client_id",
-									"value": "boa_entrega",
+									"value": "{{keycloak_client_id}}",
 									"type": "text"
 								},
 								{
 									"key": "client_secret",
-									"value": "MAqZXMH2ODvG0P5kQZKWTUONntjTGSTs",
+									"value": "{{keycloak_client_secret}}",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"realms",
-								"master",
-								"protocol",
-								"openid-connect",
-								"token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login Copy 2",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "text"
-								},
-								{
-									"key": "client_id",
-									"value": "boa_entrega",
-									"type": "text"
-								},
-								{
-									"key": "client_secret",
-									"value": "8JO3EccogD52Yr1ZwS8DhgMqf97X2Vje",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"realms",
-								"master",
-								"protocol",
-								"openid-connect",
-								"token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login Copy 3",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "grant_type",
-									"value": "client_credentials",
-									"type": "text"
-								},
-								{
-									"key": "client_id",
-									"value": "boa_entrega",
-									"type": "text"
-								},
-								{
-									"key": "client_secret",
-									"value": "8JO3EccogD52Yr1ZwS8DhgMqf97X2Vje",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:8080/realms/master/protocol/openid-connect/token",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"realms",
-								"master",
-								"protocol",
-								"openid-connect",
-								"token"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Customer",
-			"item": [
-				{
-					"name": "Create customer",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Jeremias Silva\",\n    \"email\": \"jeremias@email-provider.com\",\n    \"addresses\": [\n        {\n            \"street\": \"Rua Abc\",\n            \"number\": \"123\",\n            \"complement\": \"Ap 2\",\n            \"neighborhood\": \"Vila Def\",\n            \"city\": \"São Paulo\",\n            \"state\": \"SP\",\n            \"zip_code\": \"01234-567\",\n            \"reference\": \"Perto do petshop\",\n            \"delivery_instructions\": \"deixar com o porteiro\"\n        }\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{kong_url}}/customer",
+							"raw": "{{kong_url}}/realms/master/protocol/openid-connect/token",
 							"host": [
 								"{{kong_url}}"
 							],
 							"path": [
-								"customer"
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get customer by ID",
+					"name": "RefreshToken Customer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    const body = pm.response.json();",
+									"    pm.collectionVariables.set(\"customer_access_token\", body.access_token);",
+									"    pm.collectionVariables.set(\"customer_refresh_token\", body.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{keycloak_client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{keycloak_client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{customer_refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{kong_url}}/realms/master/protocol/openid-connect/token",
+							"host": [
+								"{{kong_url}}"
+							],
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get logged customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{kong_url}}/customer/1",
+							"raw": "{{kong_url}}/api/customer/me",
 							"host": [
 								"{{kong_url}}"
 							],
 							"path": [
+								"api",
 								"customer",
-								"1"
+								"me"
 							]
 						}
 					},
@@ -207,6 +169,16 @@
 				{
 					"name": "Update customer addresses",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{customer_access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -219,14 +191,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{kong_url}}/customer/address/1",
+							"raw": "{{kong_url}}/api/customer/address",
 							"host": [
 								"{{kong_url}}"
 							],
 							"path": [
+								"api",
 								"customer",
-								"address",
-								"1"
+								"address"
 							]
 						}
 					},
@@ -243,14 +215,25 @@
 						{
 							"name": "Get API Keys info",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kong_url}}/security/apikey",
+									"raw": "{{kong_url}}/api/security/apikey",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"security",
 										"apikey"
 									]
@@ -261,6 +244,16 @@
 						{
 							"name": "Generate API Key",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -273,11 +266,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{kong_url}}/security/apikey",
+									"raw": "{{kong_url}}/api/security/apikey",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"security",
 										"apikey"
 									]
@@ -288,17 +282,28 @@
 						{
 							"name": "Remove API Key",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{kong_url}}/security/apikey/9",
+									"raw": "{{kong_url}}/api/security/apikey/2",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"security",
 										"apikey",
-										"9"
+										"2"
 									]
 								}
 							},
@@ -312,14 +317,25 @@
 						{
 							"name": "Get all warehouses",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{kong_url}}/warehouse",
+									"raw": "{{kong_url}}/api/warehouse",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"warehouse"
 									]
 								}
@@ -329,6 +345,16 @@
 						{
 							"name": "Create new warehouse",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -341,11 +367,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{kong_url}}/warehouse",
+									"raw": "{{kong_url}}/api/warehouse",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"warehouse"
 									]
 								}
@@ -355,6 +382,16 @@
 						{
 							"name": "Update warehouse info",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [],
 								"body": {
@@ -367,11 +404,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{kong_url}}/warehouse/1",
+									"raw": "{{kong_url}}/api/warehouse/1",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"warehouse",
 										"1"
 									]
@@ -382,14 +420,25 @@
 						{
 							"name": "Delete warehouse",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{supplier_access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{kong_url}}/warehouse/1",
+									"raw": "{{kong_url}}/api/warehouse/1",
 									"host": [
 										"{{kong_url}}"
 									],
 									"path": [
+										"api",
 										"warehouse",
 										"1"
 									]
@@ -398,6 +447,135 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Login Supplier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    const body = pm.response.json();",
+									"    pm.collectionVariables.set(\"supplier_access_token\", body.access_token);",
+									"    pm.collectionVariables.set(\"supplier_refresh_token\", body.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{supplier_user}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{supplier_pass}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{keycloak_client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{keycloak_client_secret}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{kong_url}}/realms/master/protocol/openid-connect/token",
+							"host": [
+								"{{kong_url}}"
+							],
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken Supplier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200) {",
+									"    const body = pm.response.json();",
+									"    pm.collectionVariables.set(\"supplier_access_token\", body.access_token);",
+									"    pm.collectionVariables.set(\"supplier_refresh_token\", body.refresh_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{keycloak_client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{keycloak_client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{supplier_refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{kong_url}}/realms/master/protocol/openid-connect/token",
+							"host": [
+								"{{kong_url}}"
+							],
+							"path": [
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -469,12 +647,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:8080/realms/master/.well-known/openid-configuration",
-									"protocol": "http",
+									"raw": "{{kong_url}}/realms/master/.well-known/openid-configuration",
 									"host": [
-										"localhost"
+										"{{kong_url}}"
 									],
-									"port": "8080",
 									"path": [
 										"realms",
 										"master",
@@ -519,6 +695,56 @@
 		{
 			"key": "kong_admin_url",
 			"value": "http://localhost:8001",
+			"type": "string"
+		},
+		{
+			"key": "keycloak_client_id",
+			"value": "boa_entrega",
+			"type": "string"
+		},
+		{
+			"key": "keycloak_client_secret",
+			"value": "ajocPNWG983Bd2QATSPSIUAmMWObou5C",
+			"type": "string"
+		},
+		{
+			"key": "customer_user",
+			"value": "cliente1",
+			"type": "string"
+		},
+		{
+			"key": "customer_pass",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "supplier_user",
+			"value": "fornecedor1",
+			"type": "string"
+		},
+		{
+			"key": "supplier_pass",
+			"value": "123456",
+			"type": "string"
+		},
+		{
+			"key": "customer_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "customer_refresh_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "supplier_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "supplier_refresh_token",
+			"value": "",
 			"type": "string"
 		}
 	]
