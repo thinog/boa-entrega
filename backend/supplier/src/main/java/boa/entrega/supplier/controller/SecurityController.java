@@ -8,6 +8,11 @@ import boa.entrega.supplier.service.SecurityService;
 import boa.entrega.supplier.utils.JwtUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +32,11 @@ public class SecurityController {
     private final SecurityService securityService;
     private final JwtUtils jwtUtils;
 
-    @Operation(description = "Gets all API Keys for the logged supplier")
+    @Operation(description = "Obtem todas API Keys ativas para o fornecedor logado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "API Keys retornadas"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content(schema = @Schema(hidden = true)))
+    })
     @GetMapping("apikey")
     public ResponseEntity<List<ApiKey>> getApiKeys(@Parameter(hidden = true) @RequestHeader String authorization) {
         long supplierId = Long.parseLong(jwtUtils.getClaim(authorization, "supplier_id").toString());
@@ -36,10 +45,14 @@ public class SecurityController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(description = "Creates a new API Key for the logged supplier")
+    @Operation(description = "Gera uma nova API Key do fornecedor logado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "API Key gerada com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content(schema = @Schema(hidden = true)))
+    })
     @PostMapping("apikey")
     public ResponseEntity<CreateApiKeyResponseDTO> createApiKey(@Parameter(hidden = true) @RequestHeader String authorization,
-            @io.swagger.v3.oas.annotations.parameters.RequestBody @RequestBody CreateApiKeyRequestDTO body) {
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Informações de API Key") @RequestBody CreateApiKeyRequestDTO body) {
         long supplierId = Long.parseLong(jwtUtils.getClaim(authorization, "supplier_id").toString());
 
         ApiKey response = securityService.createApiKey(body.getKeyName(), body.getAccessType(), supplierId);
@@ -54,9 +67,15 @@ public class SecurityController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @Operation(description = "Deletes a API Key")
+    @Operation(description = "Apaga a API Key informada")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "API Key apagada com sucesso"),
+            @ApiResponse(responseCode = "401", description = "Não autorizado", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "A API Key informada não existe", content = @Content(schema = @Schema(hidden = true)))
+    })
     @DeleteMapping("apikey/{apiKeyId}")
-    public ResponseEntity<DeleteResponseDTO> deleteApiKey(@PathVariable long apiKeyId) {
+    public ResponseEntity<DeleteResponseDTO> deleteApiKey(
+            @Parameter(in = ParameterIn.PATH, description = "ID da API Key") @PathVariable(required = true) long apiKeyId) {
         securityService.deleteApiKey(apiKeyId);
 
         return new ResponseEntity<>(
