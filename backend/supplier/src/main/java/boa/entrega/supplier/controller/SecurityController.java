@@ -4,6 +4,10 @@ import boa.entrega.supplier.controller.dto.CreateApiKeyRequestDTO;
 import boa.entrega.supplier.controller.dto.DeleteResponseDTO;
 import boa.entrega.supplier.model.ApiKey;
 import boa.entrega.supplier.service.SecurityService;
+import boa.entrega.supplier.utils.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,22 +19,32 @@ import java.util.List;
 @RestController
 @RequestMapping("api/security")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@SecurityRequirement(name = "bearerAuth")
 public class SecurityController {
 
     private final SecurityService securityService;
+    private final JwtUtils jwtUtils;
 
+    @Operation(description = "Gets all API Keys for the logged supplier")
     @GetMapping("apikey")
-    public ResponseEntity<List<ApiKey>> getApiKeys() {
-        List<ApiKey> response = securityService.getApiKeys(0);
+    public ResponseEntity<List<ApiKey>> getApiKeys(@Parameter(hidden = true) @RequestHeader String authorization) {
+        long supplierId = Long.parseLong(jwtUtils.getClaim(authorization, "supplier_id").toString());
+
+        List<ApiKey> response = securityService.getApiKeys(supplierId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Creates a new API Key for the logged supplier")
     @PostMapping("apikey")
-    public ResponseEntity<ApiKey> createApiKey(@RequestBody CreateApiKeyRequestDTO body) {
-        ApiKey response = securityService.createApiKey(body.getKeyName(), body.getAccessType(), 0);
+    public ResponseEntity<ApiKey> createApiKey(@Parameter(hidden = true) @RequestHeader String authorization,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody @RequestBody CreateApiKeyRequestDTO body) {
+        long supplierId = Long.parseLong(jwtUtils.getClaim(authorization, "supplier_id").toString());
+
+        ApiKey response = securityService.createApiKey(body.getKeyName(), body.getAccessType(), supplierId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(description = "Deletes a API Key")
     @DeleteMapping("apikey/{apiKeyId}")
     public ResponseEntity<DeleteResponseDTO> deleteApiKey(@PathVariable long apiKeyId) {
         securityService.deleteApiKey(apiKeyId);

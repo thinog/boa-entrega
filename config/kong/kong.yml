@@ -19,17 +19,20 @@ services:
       - name: customer
         strip_path: false
         paths:
-          - /customer
           - /api/customer
-    plugins:
-      - name: jwt-keycloak
-        config:
-          allowed_iss:
-            - http://keycloak:8080/realms/master
-            - http://localhost:8080/realms/master
-          well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
-          realm_roles:
-            - customer
+        plugins:
+          - name: jwt-keycloak
+            config:
+              allowed_iss:
+                - http://keycloak:8080/realms/master
+                - http://localhost:8080/realms/master
+              well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
+              realm_roles:
+                - customer
+      - name: customer_swagger
+        strip_path: false
+        paths:
+          - /customer
 
   - host: supplier-app
     name: supplier
@@ -39,15 +42,18 @@ services:
       - name: supplier
         strip_path: false
         paths:
-          - /supplier
           - /api/security
           - /api/warehouse
-    plugins:
-      - name: jwt-keycloak
-        config:
-          allowed_iss:
-            - http://keycloak:8080/realms/master
-            - http://localhost:8080/realms/master
-          well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
-          realm_roles:
-            - supplier
+        plugins:
+          - name: jwt-keycloak
+            config:
+              allowed_iss:
+                - http://keycloak:8080/realms/master
+                - http://localhost:8080/realms/master
+              well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
+              realm_roles:
+                - supplier
+      - name: supplier_swagger
+        strip_path: false
+        paths:
+          - /supplier
