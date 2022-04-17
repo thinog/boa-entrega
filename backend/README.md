@@ -1,12 +1,3 @@
-```shell
-./gradlew bootRun
-./gradlew build flywayMigrateDev
-```
-
-http://localhost:8080/actuator/health
-
-http://localhost:8080/swagger-ui.html
-
 # Getting Started
 
 ### Reference Documentation
