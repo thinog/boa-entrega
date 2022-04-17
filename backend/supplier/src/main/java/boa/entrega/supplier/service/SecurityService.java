@@ -32,6 +32,7 @@ public class SecurityService {
                 .supplierId(supplierId)
                 .externalId(externalId)
                 .name(keyName)
+                .key(key)
                 .hash(hash)
                 .accessType(accessType)
                 .build();

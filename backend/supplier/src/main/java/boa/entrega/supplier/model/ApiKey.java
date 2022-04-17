@@ -41,6 +41,10 @@ public class ApiKey {
     @Column(insertable = false)
     private boolean active;
 
+    @JsonIgnore
+    @Transient
+    private String key;
+
     public enum AccessType {
         READONLY,
         FULL_ACCESS

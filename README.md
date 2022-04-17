@@ -45,7 +45,7 @@ make
 Ou, caso prefira:
 
 ```shell
-docker compose up --build --detach
+docker-compose up --build --detach
 ```
 
 A execução do comando pode levar alguns minutos, o tempo de realizar download de todas as imagens e de executar build de todos Dockerfiles.
@@ -85,7 +85,7 @@ make down
 Ou, caso prefira:
 
 ```shell
-docker compose down  --remove-orphans --volumes
+docker-compose down  --remove-orphans --volumes
 ```
 
 ### Problemas conhecidos
