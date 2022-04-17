@@ -76,6 +76,18 @@ Por motivos de brevidade, os usuários a serem utilizados já estão pré-criado
 
 Com exceção das GUI administrativas e do Swagger, todo o fluxo de requisições da aplicação está mapeado no arquivo do Postman, com o uso bem simplificado.
 
+Para parar a execução da aplicação, digite:
+
+```shell
+make down
+```
+
+Ou, caso prefira:
+
+```shell
+docker compose down  --remove-orphans --volumes
+```
+
 ### Problemas conhecidos
 >Valid top-level sections for this Compose file are: version, services, networks, volumes, and extensions starting with "x-".
 
