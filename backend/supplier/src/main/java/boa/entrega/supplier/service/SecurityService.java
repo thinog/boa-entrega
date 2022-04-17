@@ -47,6 +47,7 @@ public class SecurityService {
     public void deleteApiKey(long apiKeyId) {
         ApiKey apiKey = apiKeyRepository.findById(apiKeyId).orElseThrow(() -> new EntityNotFoundException("apikey"));
         apiKey.setActive(false);
+        keycloakClient.disableApiKey(apiKey.getExternalId(), apiKey.getSupplierId());
         apiKeyRepository.save(apiKey);
         messagePublisher.publish(Event.builder().eventType("API_KEY_DELETED").body(apiKey).build(), "queue-url");
     }

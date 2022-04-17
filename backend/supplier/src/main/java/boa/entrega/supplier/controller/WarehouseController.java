@@ -26,7 +26,7 @@ public class WarehouseController {
 
     @Operation(description = "Gets all warehouses of the logged supplier")
     @GetMapping()
-    public ResponseEntity<List<Warehouse>> getApiKeys(@Parameter(hidden = true) @RequestHeader String authorization) {
+    public ResponseEntity<List<Warehouse>> getAllWarehouses(@Parameter(hidden = true) @RequestHeader String authorization) {
         long supplierId = Long.parseLong(jwtUtils.getClaim(authorization, "supplier_id").toString());
 
         List<Warehouse> response = warehouseService.getWarehouses(supplierId);

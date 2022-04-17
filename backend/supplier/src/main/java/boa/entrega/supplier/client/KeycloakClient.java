@@ -14,7 +14,7 @@ public class KeycloakClient {
         return "";
     }
 
-    public void disableApiKey(long apiKeyId, long supplierId) {
+    public void disableApiKey(String keycloakKeyId, long supplierId) {
 
     }
 }
