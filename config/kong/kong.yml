@@ -1,59 +1,67 @@
+--- 
 _format_version: "1.1"
-
-services:
-  - host: keycloak
+services: 
+  - 
+    host: keycloak
     name: keycloak
     port: 8080
     protocol: http
-    routes:
-      - name: token
-        strip_path: false
-        paths:
+    routes: 
+      - 
+        name: token
+        paths: 
           - /realms/master
-
-  - host: customer-app
+        strip_path: false
+  - 
+    host: customer-app
     name: customer
     port: 8081
     protocol: http
-    routes:
-      - name: customer
-        strip_path: false
-        paths:
+    routes: 
+      - 
+        name: customer
+        paths: 
           - /api/customer
-        plugins:
-          - name: jwt-keycloak
-            config:
-              allowed_iss:
-                - http://keycloak:8080/realms/master
-                - http://localhost:8080/realms/master
-              well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
-              realm_roles:
+        plugins: 
+          - 
+            config: 
+              allowed_iss: 
+                - "http://keycloak:8080/realms/master"
+                - "http://localhost:8080/realms/master"
+              realm_roles: 
                 - customer
-      - name: customer_swagger
+              well_known_template: "http://keycloak:8080/realms/master/.well-known/openid-configuration"
+            name: jwt-keycloak
         strip_path: false
-        paths:
+      - 
+        name: customer_swagger
+        paths: 
           - /customer
-
-  - host: supplier-app
+        strip_path: false
+  - 
+    host: supplier-app
     name: supplier
     port: 8082
     protocol: http
-    routes:
-      - name: supplier
-        strip_path: false
-        paths:
+    routes: 
+      - 
+        name: supplier
+        paths: 
           - /api/security
           - /api/warehouse
-        plugins:
-          - name: jwt-keycloak
-            config:
-              allowed_iss:
-                - http://keycloak:8080/realms/master
-                - http://localhost:8080/realms/master
-              well_known_template: http://keycloak:8080/realms/master/.well-known/openid-configuration
-              realm_roles:
+        plugins: 
+          - 
+            config: 
+              allowed_iss: 
+                - "http://keycloak:8080/realms/master"
+                - "http://localhost:8080/realms/master"
+              realm_roles: 
                 - supplier
-      - name: supplier_swagger
+              well_known_template: "http://keycloak:8080/realms/master/.well-known/openid-configuration"
+            name: jwt-keycloak
         strip_path: false
-        paths:
+      - 
+        name: supplier_swagger
+        paths: 
           - /supplier
+        strip_path: false
