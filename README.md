@@ -88,7 +88,20 @@ Ou, caso prefira:
 docker-compose down  --remove-orphans --volumes
 ```
 
-### Problemas conhecidos
+## Problemas conhecidos
+### Problemas generalizados no Windows
+
+Em alguns casos, o Windows pode apresentar problemas durante o build dos containers. Isso se dá devido a problemas no tratamento do caracter de nova linha do utilitário Git. Para resolver esse problema, desative a conversão automática para CRLF, apague a pasta do repositório e o clone novamente.
+
+```shell
+git config --global core.autocrlf false
+```
+
+Outro ponto dos containers no Windows é que a primeira chamada para cada um dos serviços pode demorar um pouco mais que o habitual. A partir da primeira chamada, tudo funciona dentro do tempo esperado.
+
+
+### Não reconhece variável no docker-compose
+
 >Valid top-level sections for this Compose file are: version, services, networks, volumes, and extensions starting with "x-".
 
 Caso a aplicação apresente esse erro ao executar o Docker Compose, atualize a versão para, no mínimo, v1.27.4, como pode ser visto [aqui](https://stackoverflow.com/a/65018993).
